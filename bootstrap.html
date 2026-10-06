@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Asistencia y Métricas</title>
+  
+  <!-- Bootstrap v5.3.8 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+  <!-- 1. BARRA DE NAVEGACIÓN (LOGUEADO) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="bi bi-journal-bookmark-fill me-2"></i>Gestión de Clase
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="#"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalEnrolar">
+              <i class="bi bi-person-plus-fill me-1"></i> Enrolar Alumnos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalConfiguracion">
+              <i class="bi bi-gear-fill me-1"></i> Configuración
+            </a>
+          </li>
+        </ul>
+        
+        <!-- Estado Logueado -->
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle fs-5"></i> Prof. Carlos Mendoza
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalConfiguracion"><i class="bi bi-gear me-2"></i>Ajustes</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#modalSalir"><i class="bi bi-box-arrow-right me-2"></i>Salir</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. CONTENIDO PRINCIPAL -->
+  <main class="container my-4 flex-grow-1">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h2 class="fw-bold mb-0">Métricas de la Clase</h2>
+        <p class="text-muted mb-0">Resumen de asistencia y control de alumnos</p>
+      </div>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEnrolar">
+        <i class="bi bi-person-plus me-1"></i> Enrolar Alumno
+      </button>
+    </div>
+
+    <!-- TARJETAS DE MÉTRICAS -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="card text-white bg-primary h-100 shadow-sm">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="card-title text-uppercase mb-1 opacity-75">Cantidad de Alumnos</h6>
+              <h2 class="display-5 fw-bold mb-0">35</h2>
+            </div>
+            <i class="bi bi-people-fill display-4 opacity-50"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-white bg-success h-100 shadow-sm">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="card-title text-uppercase mb-1 opacity-75">Días de Clase</h6>
+              <h2 class="display-5 fw-bold mb-0">20 <span class="fs-5 fw-normal">/ 30</span></h2>
+            </div>
+            <i class="bi bi-calendar-check-fill display-4 opacity-50"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-white bg-info h-100 shadow-sm">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="card-title text-uppercase mb-1 opacity-75">Promedio de Asistencia</h6>
+              <h2 class="display-5 fw-bold mb-0">92.4%</h2>
+            </div>
+            <i class="bi bi-graph-up-arrow display-4 opacity-50"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTAS DE ALUMNOS -->
+    <div class="row g-4">
+      
+      <!-- Lista de Alumnos en Riesgo (con Reposición) -->
+      <div class="col-lg-6">
+        <div class="card border-danger shadow-sm h-100">
+          <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0 fs-6 fw-bold">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>Alumnos en Riesgo (con Reposición)
+            </h5>
+            <span class="badge bg-light text-danger">3 Alumnos</span>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Alumno</th>
+                    <th>Faltas</th>
+                    <th>Estado de Reposición</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Juan Pérez</strong></td>
+                    <td><span class="badge bg-danger">4 Inasistencias</span></td>
+                    <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>María Gómez</strong></td>
+                    <td><span class="badge bg-danger">3 Inasistencias</span></td>
+                    <td><span class="badge bg-info text-dark">Programada</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Carlos López</strong></td>
+                    <td><span class="badge bg-danger">3 Inasistencias</span></td>
+                    <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de Alumnos sin Faltas -->
+      <div class="col-lg-6">
+        <div class="card border-success shadow-sm h-100">
+          <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0 fs-6 fw-bold">
+              <i class="bi bi-star-fill me-2"></i>Alumnos que No Han Faltado Una Vez
+            </h5>
+            <span class="badge bg-light text-success">100% Asistencia</span>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Alumno</th>
+                    <th>Asistencias</th>
+                    <th>Estatus</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Ana Martínez</strong></td>
+                    <td>20 / 20 Días</td>
+                    <td><span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Sin faltas</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Luis Fernando Ruiz</strong></td>
+                    <td>20 / 20 Días</td>
+                    <td><span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Sin faltas</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sofia Hernández</strong></td>
+                    <td>20 / 20 Días</td>
+                    <td><span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Sin faltas</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Diego Ramos</strong></td>
+                    <td>20 / 20 Días</td>
+                    <td><span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Sin faltas</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- 3. FOOTER -->
+  <footer class="bg-dark text-white text-center py-3 mt-auto">
+    <div class="container">
+      <p class="mb-0 small">&copy; Sistema de Gestión y Asistencia | Bootstrap v5.3.8</p>
+    </div>
+  </footer>
+
+  <!-- MODALES -->
+  <!-- Enrolar -->
+  <div class="modal fade" id="modalEnrolar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-person-plus-fill me-2"></i>Enrolar Nuevo Alumno</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Nombre Completo</label>
+              <input type="text" class="form-control" placeholder="Ej. Roberto Alvarado">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" placeholder="ejemplo@correo.com">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Identificación / ID</label>
+              <input type="text" class="form-control" placeholder="202600123">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enrolar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Configuración -->
+  <div class="modal fade" id="modalConfiguracion" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-gear-fill me-2"></i>Configuración de la Clase</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Nombre de la Clase</label>
+              <input type="text" class="form-control" value="Programación Web">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Días de Clase Programados</label>
+              <input type="number" class="form-control" value="30">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Salir -->
+  <div class="modal fade" id="modalSalir" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger"><i class="bi bi-box-arrow-right me-2"></i>Salir</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          ¿Deseas cerrar la sesión actual?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Salir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap v5.3.8 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
